@@ -20,8 +20,8 @@ run(){
 
 }
 install_mongodb() {
-	sudo apt update
-	sudo apt install -y mongodb
+	sudo apt update > /dev/null
+	sudo apt install -y mongodb-org > /dev/null
 	read -p "Deseas habilitar y arrancar el servicio de MongoDB? (y/n): " response
 	if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
 		enable_mongodb
@@ -36,7 +36,7 @@ enable_mongodb(){
 }
 setup_mongodb(){
 	echo "Instalando los comandos necesarios para importar la clave publica de MongoDB"
-	sudo apt-get install gnupg curl
+	sudo apt-get install gnupg curl > /dev/null
 	
 	echo "importando la clave publica de MongoDB"
 	curl -fsSL https://www.mongodb.org/static/pgp/server-7.0.asc | \
@@ -45,7 +45,7 @@ setup_mongodb(){
 	echo "Creando el archivo de lista de repositorios de MongoDB en /etc/apt/sources.list.d/mongodb-org-7.0.list"
 	echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-7.0.gpg ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list
 	echo "Actualizando la lista de paquetes"
-	sudo apt-get update
+	sudo apt-get update > /dev/null
 	echo "Instalando MongoDB"
 	install_mongodb
 }
