@@ -3,14 +3,14 @@
 # Install MongoDB on Ubuntu 22.04
 # Author: Cris
 run(){
-		if [[ -x "$(command -v lsb_release)"]]; then
+		if [[ -x "$(command -v lsb_release)" ]]; then
 		ubuntu_version=$(lsb_release -rs)
 	else
 		echo "Asegurate de estar usando este script en un sistema Ubuntu"
 		exit 1
 	fi
 	requiered_version="22.04"
-	if [[ $(echo "$ubuntu_version >= $requiered_version" | bc) -eq 1 ]]; then
+	if [[ "$ubuntu_version == $requiered_version" ]]; then
 		echo "Instalando MongoDB en Ubuntu 22.04"
 		setup_mongodb
 	else
